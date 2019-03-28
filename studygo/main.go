@@ -1,11 +1,13 @@
 package main
 
-import "studygo/base"
+import "studygo/socket"
 
 func main() {
 	//base.Hello()
 	//base.Run()
 	//base.InterRun()
 	//base.RunChannel()
-	base.RunReflect()
+	//base.RunReflect()
+	//mq.Start()
+	socket.RunServer()
 }
