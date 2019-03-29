@@ -14,20 +14,30 @@ func write(data []byte, conn net.Conn) {
 	}
 }
 
+func read(conn net.Conn) (string, bool) {
+	reader := bufio.NewReader(conn)
+	line, err := reader.ReadString(byte('\n'))
+	if err != nil {
+		err := conn.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+		return "", false
+	}
+	return line, true
+}
+
 func handler(conn net.Conn, ws *sync.WaitGroup) {
 	//var read_byte = make([]byte,1024)
 	// 退出时，调用
 	defer ws.Done()
 	for {
-		reader := bufio.NewReader(conn)
-		line, err := reader.ReadString(byte('\n'))
-		if err != nil {
-			err := conn.Close()
-			if err != nil {
-				fmt.Println(err)
-			}
+
+		line, flag := read(conn)
+		if flag == false {
 			return
 		}
+
 		// 读取一行数据。
 		inputs := strings.Split(line, " ")
 		switch inputs[0] {
