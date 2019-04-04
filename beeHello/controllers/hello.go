@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	_ "beeHello/models"
 )
 
 type HelloController struct {
@@ -9,5 +10,6 @@ type HelloController struct {
 }
 
 func (c *HelloController) Get() {
-	c.Ctx.WriteString("hello")
+	c.Ctx.WriteString(NotPV)
+	//c.Ctx.
 }
